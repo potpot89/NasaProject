@@ -1,0 +1,67 @@
+:root {
+  --primary-dark: rgb(9, 13, 90);
+  --primary: rgb(43, 48, 150);
+
+  --s1: 0.6rem;
+  --s2: 1rem;
+  --s3: 1.5rem;
+  --s4: 3.5rem;
+}
+
+html,
+body,
+h1,
+h2,
+h3 {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: lightgray;
+}
+
+header {
+  background-color: var(--primary-dark);
+  color: white;
+  padding: 0.8rem;
+}
+
+.astronomy-picture {
+  background-color: white;
+  margin: var(--s4) var(--s2);
+  padding: var(--s1) var(--s2);
+  border-radius: var(--s1);
+}
+
+.astronomy-picture img {
+  max-width: 50%;
+  object-fit: cover;
+}
+
+article {
+  display: flex;
+}
+
+.text-container {
+  padding: var(--s2);
+}
+
+.pictures-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.picture-container {
+  flex: 0 0 25%;
+}
+
+.picture-container img {
+  object-fit: cover;
+}
+
+img {
+  max-width: 300px;
+  height: 300px;
+}

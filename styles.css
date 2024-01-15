@@ -17,6 +17,41 @@ h3 {
   padding: 0;
 }
 
+h2 {
+  padding: 1.5rem 0;
+  text-align: center;
+}
+
+#main-picture {
+  background-color: pink;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "date date"
+    "title title"
+    "img description";
+  justify-items: center;
+  align-items: center;
+}
+
+#main-picture > h3 {
+  grid-area: date;
+}
+
+#main-picture > h4 {
+  grid-area: title;
+}
+
+#main-picture > img {
+  grid-area: img;
+  justify-self: center;
+}
+#main-picture > p {
+  grid-area: description;
+  justify-self: start;
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   background-color: lightgray;
@@ -33,15 +68,6 @@ header {
   margin: var(--s4) var(--s2);
   padding: var(--s1) var(--s2);
   border-radius: var(--s1);
-}
-
-.astronomy-picture img {
-  max-width: 50%;
-  object-fit: cover;
-}
-
-article {
-  display: flex;
 }
 
 .text-container {
@@ -62,6 +88,6 @@ article {
 }
 
 img {
-  max-width: 300px;
-  height: 300px;
+  width: fit-content;
+  max-height: 300px;
 }

@@ -37,26 +37,47 @@ let fetchPictures = () => {
 let fetchedPictures = fetchPictures().then((pictures) => {
   //console.log(pictures);
 
-  //extract the most recent picture and add it to the mainPicture container
+  //extract the most recent picture and add it to the mainPicture container, with its title and the date
+
+  let mostRecentDate = pictures.at(-1).date;
+  let h3 = document.createElement(`h3`);
+  h3.textContent = mostRecentDate;
+  mainPicture.appendChild(h3);
+
+  let mostRecentTitle = pictures.at(-1).title;
+  //console.log(mostRecentTitle);
+  let h4 = document.createElement(`h4`);
+  h4.textContent = mostRecentTitle;
+  mainPicture.appendChild(h4);
 
   let mainPic = document.createElement(`img`);
   let mostRecentPic = pictures.at(-1).url;
   //console.log(mostRecentPic);
+
   mainPic.src = mostRecentPic;
   mainPicture.appendChild(mainPic);
+
+  //only for the picture of the day, add the description in the article
+
+  let p = document.createElement(`p`);
+  p.textContent = pictures.at(-1).explanation;
+  mainPicture.appendChild(p);
 });
 
-//extract the remaining pictures and add them to the 'previous image' section
+//extract the remaining pictures and add them to the 'previous image' section, with their title
 //reverse the order of the array and cut out the most recent image that we already added to the main container
 
 let fetchOtherPictures = fetchPictures().then((otherPictures) => {
   let otherPic = otherPictures.reverse().slice(1);
   console.log({ otherPic });
   otherPic.forEach((item) => {
+    let pic2container = document.createElement(`div`);
+    picturesContainer.appendChild(pic2container);
+    let h4 = document.createElement(`h4`);
+    h4.textContent = item.title;
+    pic2container.appendChild(h4);
     let img = document.createElement(`img`);
     img.src = item.url;
-    picturesContainer.appendChild(img);
+    pic2container.appendChild(img);
   });
 });
-
-//add descriptions and titles

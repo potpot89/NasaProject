@@ -21,11 +21,11 @@ let picturesContainer = document.querySelector(".pictures-container");
 
 //variable for the mock file for development purpose. It fetches the json file we created and it allows to work offline.
 //it allows us to work on fake data / signposts
-let astronomyPictures = "mock/astronomy-pictures.json";
+//let astronomyPictures = "mock/astronomy-pictures.json";
 
 //URL to the endpoint with the queries and api key - for final project that goes to the online endpoint - comment the mock variable and comment out below fetch API inquiry, to move from the mock to the actual API app
 
-//let astronomyPictures = `https://api.nasa.gov/planetary/apod?start_date=${start_date}&end_date=${end_date}&api_key=${apiKey}`;
+let astronomyPictures = `https://api.nasa.gov/planetary/apod?start_date=${start_date}&end_date=${end_date}&api_key=${apiKey}`;
 
 //assegno fetch a una variabile. in questo caso fetch è una funzione che al suo interno assegna un'altra fetch.
 let fetchPictures = () => {
@@ -50,12 +50,14 @@ let fetchedPictures = fetchPictures().then((pictures) => {
   h4.textContent = mostRecentTitle;
   mainPicture.appendChild(h4);
 
+  let mainPicDiv = document.createElement(`div`);
+  mainPicture.appendChild(mainPicDiv);
   let mainPic = document.createElement(`img`);
   let mostRecentPic = pictures.at(-1).url;
   //console.log(mostRecentPic);
 
   mainPic.src = mostRecentPic;
-  mainPicture.appendChild(mainPic);
+  mainPicDiv.appendChild(mainPic);
 
   //only for the picture of the day, add the description in the article
 
@@ -73,9 +75,17 @@ let fetchOtherPictures = fetchPictures().then((otherPictures) => {
   otherPic.forEach((item) => {
     let pic2container = document.createElement(`div`);
     picturesContainer.appendChild(pic2container);
-    let h4 = document.createElement(`h4`);
-    h4.textContent = item.title;
-    pic2container.appendChild(h4);
+    //get title for each picture
+    let title = document.createElement(`h3`);
+    title.textContent = item.title;
+    pic2container.appendChild(title);
+
+    //get date for each picture
+    let date = document.createElement(`h3`);
+    date.textContent = item.date;
+    pic2container.appendChild(date);
+
+    //get img for each picture
     let img = document.createElement(`img`);
     img.src = item.url;
     pic2container.appendChild(img);

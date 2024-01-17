@@ -21,11 +21,11 @@ let picturesContainer = document.querySelector(".pictures-container");
 
 //variable for the mock file for development purpose. It fetches the json file we created and it allows to work offline.
 //it allows us to work on fake data / signposts
-//let astronomyPictures = "mock/astronomy-pictures.json";
+let astronomyPictures = "mock/astronomy-pictures.json";
 
 //URL to the endpoint with the queries and api key - for final project that goes to the online endpoint - comment the mock variable and comment out below fetch API inquiry, to move from the mock to the actual API app
 
-let astronomyPictures = `https://api.nasa.gov/planetary/apod?start_date=${start_date}&end_date=${end_date}&api_key=${apiKey}`;
+//let astronomyPictures = `https://api.nasa.gov/planetary/apod?start_date=${start_date}&end_date=${end_date}&api_key=${apiKey}`;
 
 //assegno fetch a una variabile. in questo caso fetch è una funzione che al suo interno assegna un'altra fetch.
 let fetchPictures = () => {
@@ -35,35 +35,39 @@ let fetchPictures = () => {
 
 //prendiamo le immagini che abbiamo recuperato e a queste concateniamo degli altri then
 let fetchedPictures = fetchPictures().then((pictures) => {
-  //console.log(pictures);
+  //console.log({ pictures });
 
   //extract the most recent picture and add it to the mainPicture container, with its title and the date
 
-  let mostRecentDate = pictures.at(-1).date;
-  let h3 = document.createElement(`h3`);
-  h3.textContent = mostRecentDate;
-  mainPicture.appendChild(h3);
-
-  let mostRecentTitle = pictures.at(-1).title;
-  //console.log(mostRecentTitle);
-  let h4 = document.createElement(`h4`);
-  h4.textContent = mostRecentTitle;
-  mainPicture.appendChild(h4);
-
-  let mainPicDiv = document.createElement(`div`);
-  mainPicture.appendChild(mainPicDiv);
   let mainPic = document.createElement(`img`);
   let mostRecentPic = pictures.at(-1).url;
   //console.log(mostRecentPic);
 
   mainPic.src = mostRecentPic;
-  mainPicDiv.appendChild(mainPic);
+  mainPicture.appendChild(mainPic);
+
+  let mostRecentDate = pictures.at(-1).date;
+  let textContainer = document.createElement(`div`);
+  mainPicture.appendChild(textContainer);
+  let h3 = document.createElement(`h3`);
+  h3.textContent = mostRecentDate;
+  textContainer.appendChild(h3);
+
+  let mostRecentTitle = pictures.at(-1).title;
+  //console.log(mostRecentTitle);
+  let h4 = document.createElement(`h4`);
+  h4.textContent = mostRecentTitle;
+  textContainer.appendChild(h4);
 
   //only for the picture of the day, add the description in the article
 
   let p = document.createElement(`p`);
   p.textContent = pictures.at(-1).explanation;
-  mainPicture.appendChild(p);
+  textContainer.appendChild(p);
+
+  let copyright = document.createElement(`p`);
+  copyright.textContent = `Copyright: ${pictures.at(-1).copyright}`;
+  textContainer.appendChild(copyright);
 });
 
 //extract the remaining pictures and add them to the 'previous image' section, with their title
@@ -75,10 +79,6 @@ let fetchOtherPictures = fetchPictures().then((otherPictures) => {
   otherPic.forEach((item) => {
     let pic2container = document.createElement(`div`);
     picturesContainer.appendChild(pic2container);
-    //get title for each picture
-    let title = document.createElement(`h3`);
-    title.textContent = item.title;
-    pic2container.appendChild(title);
 
     //get date for each picture
     let date = document.createElement(`h3`);

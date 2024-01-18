@@ -11,15 +11,26 @@
     <title>Nasa app project</title>
   </head>
   <body>
-    <header><h1>NASA API PROJECT</h1></header>
+    <header>
+      <h1>NASA API PROJECT</h1>
+      <nav>
+        <ul>
+          <li>
+            <a href="#picture-of-the-day">Picture of the Day</a>
+          </li>
+          <li><a href="#previous-pictures"> Previous pictures </a></li>
+        </ul>
+      </nav>
+    </header>
     <main>
-      <section class="astronomy-picture">
+      <section class="astronomy-picture" id="picture-of-the-day">
         <h2>Astronomy picture of the day</h2>
         <article id="main-picture"></article>
       </section>
       <section class="otherpictures">
         <h2>Previous images</h2>
-        <div class="pictures-container"></div>
+
+        <div class="pictures-container" id="previous-pictures"></div>
       </section>
       <!-- DATI DA MARTE -->
     </main>

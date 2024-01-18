@@ -1,6 +1,7 @@
 //my API key to add to the URL
 let apiKey = "VGrzb1RDd78jbBmTl8KoHpZBEBMKGcpKENzWUKPo";
 
+/*
 //get today's date but convert it in the format YYYY-MM-DD that we need to make the query in the API
 const date = new Date();
 const formatter = new Intl.DateTimeFormat("af-ZA", {
@@ -10,6 +11,23 @@ const formatter = new Intl.DateTimeFormat("af-ZA", {
 });
 const formattedToday = formatter.format(date);
 //console.log(formattedToday);
+*/
+
+//get the end date (today) in millis
+let endMillis = Date.now();
+
+//set the start date
+let startDay = convertDaysInMillis(16);
+function convertDaysInMillis(days) {
+  //starting from days, calculate how many millis there are
+  return (
+    days *
+    24 * //h
+    60 * //min
+    60 * //sec
+    1000
+  ); //millis
+}
 
 //queries to add to the API
 let start_date = "2024-01-01";

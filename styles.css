@@ -22,6 +22,29 @@ p {
   padding: 0;
 }
 
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  display: inline;
+  padding: 0.5rem;
+}
+
+li > a {
+  text-decoration: none;
+  color: white;
+}
+
+li > a:hover {
+  color: yellow;
+}
+
 .astronomy-picture {
   background-color: white;
   margin: var(--s4) var(--s2);

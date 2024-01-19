@@ -13,11 +13,13 @@ const formattedToday = formatter.format(date);
 //console.log(formattedToday);
 */
 
-//get the end date (today) in millis
+//set the start date at 16 days before the end date (today) and use millis
 let endMillis = Date.now();
 
+let daysMillis = convertDaysInMillis(16);
+
 //set the start date
-let startDay = convertDaysInMillis(16);
+
 function convertDaysInMillis(days) {
   //starting from days, calculate how many millis there are
   return (
@@ -29,9 +31,30 @@ function convertDaysInMillis(days) {
   ); //millis
 }
 
+// startMillis = endMillis - 16 days (in milliseconds)
+let startMillis = endMillis - daysMillis;
+
 //queries to add to the API
-let start_date = "2024-01-01";
-let end_date = formattedToday;
+//let start = "2024-01-01";
+let start_date = new Date(startMillis);
+//let end = formattedToday;
+let end_date = new Date(endMillis);
+
+//convert the date objects in the format for the API (YY-MM-DD)
+let [endYear, endMonth, endDay] = [
+  end_date.getFullYear(),
+  end_date.getMonth() + 1,
+  end_date.getDate(),
+];
+
+let [startYear, startMonth, startDay] = [
+  start_date.getFullYear(),
+  start_date.getMonth() + 1,
+  start_date.getDate(),
+];
+
+let start = `${startYear}-${startMonth}-${startDay}`;
+let end = `${endYear}-${endMonth}-${endDay}`;
 
 //variables to target the DOM elements
 let mainPicture = document.querySelector("#main-picture");
@@ -39,11 +62,11 @@ let picturesContainer = document.querySelector(".pictures-container");
 
 //variable for the mock file for development purpose. It fetches the json file we created and it allows to work offline.
 //it allows us to work on fake data / signposts
-let astronomyPictures = "mock/astronomy-pictures.json";
+//let astronomyPictures = "mock/astronomy-pictures.json";
 
 //URL to the endpoint with the queries and api key - for final project that goes to the online endpoint - comment the mock variable and comment out below fetch API inquiry, to move from the mock to the actual API app
 
-//let astronomyPictures = `https://api.nasa.gov/planetary/apod?start_date=${start_date}&end_date=${end_date}&api_key=${apiKey}`;
+let astronomyPictures = `https://api.nasa.gov/planetary/apod?start_date=${start}&end_date=${end}&api_key=${apiKey}&thumbs=true`; //thumbs= true enables the thumbnails url, which gives a preview of a video, in case there is a video instead of an img, using a conditional
 
 //assegno fetch a una variabile. in questo caso fetch è una funzione che al suo interno assegna un'altra fetch.
 let fetchPictures = () => {
@@ -92,6 +115,8 @@ let fetchedPictures = fetchPictures().then((pictures) => {
 //reverse the order of the array and cut out the most recent image that we already added to the main container
 
 let fetchOtherPictures = fetchPictures().then((otherPictures) => {
+  //empty the picture container first
+  picturesContainer.innerHTML = ``;
   let otherPic = otherPictures.reverse().slice(1);
   console.log({ otherPic });
   otherPic.forEach((item) => {
@@ -103,9 +128,14 @@ let fetchOtherPictures = fetchPictures().then((otherPictures) => {
     date.textContent = item.date;
     pic2container.appendChild(date);
 
-    //get img for each picture
+    //get img for each picture and make it so that if the picture media type is a video, its thumbnail is displayed
     let img = document.createElement(`img`);
-    img.src = item.url;
+    if (item.media_type === `image`) {
+      img.src = item.url;
+    } else {
+      img.src = item.thumbnail_url;
+    }
+
     pic2container.appendChild(img);
   });
 });

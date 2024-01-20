@@ -1,5 +1,5 @@
 //my API key to add to the URL
-let apiKey = "VGrzb1RDd78jbBmTl8KoHpZBEBMKGcpKENzWUKPo";
+const apiKey = "VGrzb1RDd78jbBmTl8KoHpZBEBMKGcpKENzWUKPo";
 
 /*
 //get today's date but convert it in the format YYYY-MM-DD that we need to make the query in the API
@@ -59,6 +59,7 @@ let end = `${endYear}-${endMonth}-${endDay}`;
 //variables to target the DOM elements
 let mainPicture = document.querySelector("#main-picture");
 let picturesContainer = document.querySelector(".pictures-container");
+let body = document.getElementsByTagName(`body`);
 
 //variable for the mock file for development purpose. It fetches the json file we created and it allows to work offline.
 //it allows us to work on fake data / signposts
@@ -116,10 +117,12 @@ let fetchedPictures = fetchPictures().then((pictures) => {
 let fetchOtherPictures = fetchPictures().then((otherPictures) => {
   //empty the picture container first
   picturesContainer.innerHTML = ``;
+
   let otherPic = otherPictures.reverse().slice(1);
-  console.log({ otherPic });
+
   otherPic.forEach((item) => {
     let pic2container = document.createElement(`div`);
+    pic2container.className = `targetEvent`;
     picturesContainer.appendChild(pic2container);
 
     //get date for each picture
@@ -134,9 +137,46 @@ let fetchOtherPictures = fetchPictures().then((otherPictures) => {
     } else {
       img.src = item.thumbnail_url;
     }
-
     pic2container.appendChild(img);
+
+    // // Store information about the picture in the data attributes
+    pic2container.dataset.title = item.title;
+    pic2container.dataset.description = item.explanation;
+    pic2container.dataset.copyright = item.copyright;
+
+    // Add an EventListener to each pic2container
+    pic2container.addEventListener("click", () => {
+      // Get the stored information from data attributes
+      const title = pic2container.dataset.title;
+      const description = pic2container.dataset.description;
+      const copyright = pic2container.dataset.copyright;
+
+      // Set the content of the details-container
+      document.getElementById("picture-title").textContent = title;
+      document.getElementById("picture-description").textContent = description;
+      document.getElementById(
+        "picture-copyright"
+      ).textContent = `Copyright: ${copyright}`;
+      document.getElementById("picture-img").src = img.src;
+
+      // Show the details-container
+      document.getElementById("details-container").style.display = "flex";
+
+      // Set the content of the details-container
+      document.getElementById("picture-title").textContent = title;
+      document.getElementById("picture-description").textContent = description;
+      document.getElementById(
+        "picture-copyright"
+      ).textContent = `Copyright: ${copyright}`;
+      document.getElementById("picture-img").src = img.src;
+
+      // Show the details-container
+      document.getElementById("details-container").style.display = "flex";
+    });
   });
 });
-
-//#TODO: add an EventListener to the other pictures so that when clicking on them, the details-container becomes visible (display is changed from none to flex)
+//close modal window setting it back to display none
+let closeButton = document.querySelector(`#close-button`);
+closeButton.addEventListener(`click`, () => {
+  document.querySelector(`#details-container`).style.display = `none`;
+});

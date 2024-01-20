@@ -165,7 +165,7 @@ it must cover the whole viewport */
   ); /*set a background that has a bit of transparency*/
 
   display: none;
-  /*in Javascript we wil change this to display: flex, to make the element visible*/
+  /*in Javascript we will change this to display: flex, to make the element visible*/
 
   justify-content: center;
   align-items: center;

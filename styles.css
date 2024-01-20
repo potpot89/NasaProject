@@ -146,3 +146,43 @@ body {
   width: 100%;
   height: 100%;
 }
+
+/* create the style for the details container which will then be shown or hidden through javascript.
+it must cover the whole viewport */
+#details-container {
+  width: 100%;
+  height: 100vh;
+  z-index: 9; /*so that it is on top of other element*/
+
+  position: fixed; /*to make it stay in place*/
+  top: 0; /*to put it at the top of the page*/
+
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.8
+  ); /*set a background that has a bit of transparency*/
+
+  display: none;
+  /*in Javascript we wil change this to display: flex, to make the element visible*/
+
+  justify-content: center;
+  align-items: center;
+  /*center the element in the page*/
+}
+
+/*make the container visible on top of the main container and slightly smaller, so that the elements beneath it are still visible*/
+.picture-detail {
+  background-color: white;
+  width: 90%;
+  height: 90vh;
+  overflow: hidden;
+}
+
+/*to make the img fit in its container*/
+.picture-detail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

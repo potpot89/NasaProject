@@ -62,11 +62,11 @@ let picturesContainer = document.querySelector(".pictures-container");
 
 //variable for the mock file for development purpose. It fetches the json file we created and it allows to work offline.
 //it allows us to work on fake data / signposts
-//let astronomyPictures = "mock/astronomy-pictures.json";
+let astronomyPictures = "mock/astronomy-pictures.json";
 
 //URL to the endpoint with the queries and api key - for final project that goes to the online endpoint - comment the mock variable and comment out below fetch API inquiry, to move from the mock to the actual API app
 
-let astronomyPictures = `https://api.nasa.gov/planetary/apod?start_date=${start}&end_date=${end}&api_key=${apiKey}&thumbs=true`; //thumbs= true enables the thumbnails url, which gives a preview of a video, in case there is a video instead of an img, using a conditional
+//let astronomyPictures = `https://api.nasa.gov/planetary/apod?start_date=${start}&end_date=${end}&api_key=${apiKey}&thumbs=true`; //thumbs= true enables the thumbnails url, which gives a preview of a video, in case there is a video instead of an img, using a conditional
 
 //assegno fetch a una variabile. in questo caso fetch è una funzione che al suo interno assegna un'altra fetch.
 let fetchPictures = () => {
@@ -113,7 +113,6 @@ let fetchedPictures = fetchPictures().then((pictures) => {
 
 //extract the remaining pictures and add them to the 'previous image' section, with their title
 //reverse the order of the array and cut out the most recent image that we already added to the main container
-
 let fetchOtherPictures = fetchPictures().then((otherPictures) => {
   //empty the picture container first
   picturesContainer.innerHTML = ``;
@@ -139,3 +138,5 @@ let fetchOtherPictures = fetchPictures().then((otherPictures) => {
     pic2container.appendChild(img);
   });
 });
+
+//#TODO: add an EventListener to the other pictures so that when clicking on them, the details-container becomes visible (display is changed from none to flex)

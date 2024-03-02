@@ -56,12 +56,13 @@ li > a:hover {
 .astronomy-picture {
   background-color: white;
   margin: var(--s4) var(--s2);
-  padding: var(--s1) var(--s2);
   border-radius: var(--s1);
 }
 
 .astronomy-picture > h2 {
   padding: var(--s2) 0;
+  background-color: var(--primary-dark);
+  color: white;
 }
 
 .astronomy-picture img {
@@ -185,4 +186,18 @@ it must cover the whole viewport */
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.picture-detail h2,
+p {
+  margin: 10px 5px;
+}
+
+.picture-detail button {
+  margin: 2px 0 10px 5px;
+}
+
+.targetEvent:hover,
+#close-button:hover {
+  cursor: pointer;
 }

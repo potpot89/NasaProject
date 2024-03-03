@@ -60,7 +60,7 @@ li > a:hover {
 }
 
 .astronomy-picture > h2 {
-  padding: var(--s2) 0;
+  padding: var(--s2);
   background-color: var(--primary-dark);
   color: white;
 }
@@ -188,6 +188,13 @@ it must cover the whole viewport */
   object-fit: cover;
 }
 
+/*resize it for smaller screens only */
+@media only screen and (max-width: 768 px) {
+  .picture-detail img {
+    height: 50%;
+  }
+}
+
 .picture-detail h2,
 p {
   margin: 10px 5px;
@@ -200,4 +207,33 @@ p {
 .targetEvent:hover,
 #close-button:hover {
   cursor: pointer;
+}
+
+.mars-chart-container {
+  overflow: hidden;
+  background-color: #ebc1aa;
+  margin: var(--s4) var(--s2);
+  border-radius: var(--s1);
+}
+
+.mars-chart-container > h2 {
+  background-color: #6a2804;
+  color: white;
+  padding: var(--s2);
+}
+
+.mars-chart-container p {
+  padding: var(--s1);
+}
+
+.mars-chart-container h3 {
+  background-color: white;
+  padding: var(--s3) var(--s2);
+}
+
+.mars-chart {
+  background-color: white;
+  margin: 0 auto;
+  width: 100%;
+  min-height: 420px;
 }
